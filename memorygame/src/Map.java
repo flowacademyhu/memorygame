@@ -5,10 +5,12 @@ import java.util.List;
 public class Map {
     Card[][] cards;
     int factor;
+    List<Card> revealed;
 
     public Map(int n,int m,int factor) {
         this.cards= new Card[n][m];
         this.factor=factor;
+        this.revealed = new ArrayList<>();
        // System.out.println("hello world");
         generateMap();
     }
@@ -27,7 +29,7 @@ public class Map {
         int cardValue = 1;
         for (int i = 0; i< (cards.length*cards[0].length)/factor;i++) {
             for (int j = 0; j < factor; j++) {
-                list.add(new Card(cardValue, false));
+                list.add(new Card(cardValue));
             }
             cardValue++;
         }
@@ -41,5 +43,33 @@ public class Map {
             System.out.println("");
         }
     }
+
+    public void doClick(int x,int y){
+
+        if(revealed.size()>0 && revealed.get(0).equals(cards[x][y] )){
+            return;
+        }
+        revealed.add(this.cards[x][y]);
+        cards[x][y].setVisible(true);
+        if(revealed.size()==factor){
+            if(revealed.get(0).getValue()==revealed.get(1).getValue()){
+                revealed.get(0).setFound(true);
+                revealed.get(1).setFound(true);
+            }else {
+                try {
+                    printMap();
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                revealed.get(0).setVisible(false);
+                revealed.get(1).setVisible(false);
+            }
+
+            revealed.clear();
+        }
+
+    }
+
 
 }

@@ -1,10 +1,20 @@
 public class Card {
     private int value;
     private boolean isFound;
+    private boolean isVisible;
 
-    public Card(int value, boolean isFound) {
+    public Card(int value) {
         this.value = value;
-        this.isFound = isFound;
+        this.isFound = false;
+        this.isVisible = false;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
     }
 
     public int getValue() {
@@ -25,6 +35,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return isVisible ? String.valueOf(value) : "#";
     }
 }
