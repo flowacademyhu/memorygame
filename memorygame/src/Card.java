@@ -22,4 +22,9 @@ public class Card {
     public void setFound(boolean found) {
         isFound = found;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
 }
