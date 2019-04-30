@@ -4,16 +4,17 @@ import java.util.List;
 
 public class Map {
     Card[][] cards;
+    int factor;
 
-
-    public Map(int n,int m) {
+    public Map(int n,int m,int factor) {
         this.cards= new Card[n][m];
+        this.factor=factor;
        // System.out.println("hello world");
         generateMap();
     }
 
     private void generateMap() {
-        List<Card> list= generateList();
+        List<Card> list= generateList(factor);
         for(int i = 0; i < cards.length; i++) {
             for (int j = 0; j < cards[i].length; j++) {
                // System.out.println(list);
@@ -21,12 +22,13 @@ public class Map {
             }
         }
     }
-    private List<Card> generateList() {
+    private List<Card> generateList(int factor) {
         List<Card> list= new ArrayList<>();
         int cardValue = 1;
-        for (int i = 0; i< (cards.length*cards[0].length)/2;i++) {
-            list.add(new Card(cardValue,false));
-            list.add(new Card(cardValue,false));
+        for (int i = 0; i< (cards.length*cards[0].length)/factor;i++) {
+            for (int j = 0; j < factor; j++) {
+                list.add(new Card(cardValue, false));
+            }
             cardValue++;
         }
     return list;
